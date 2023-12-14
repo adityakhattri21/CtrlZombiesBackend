@@ -26,6 +26,10 @@ const events = new Schema({
         type:[String],
         ref:"users",
         default:[]
+    },
+    image:{
+        type:String,
+        required:true
     }
 })
 
