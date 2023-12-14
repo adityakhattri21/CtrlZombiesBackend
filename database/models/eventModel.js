@@ -15,7 +15,8 @@ const events = new Schema({
     },
     villageName:{
         type:String,
-        requried:true
+        requried:true,
+        
     },
     type:{
         type:String,
@@ -26,6 +27,13 @@ const events = new Schema({
         ref:"users",
         default:[]
     }
+})
+
+events.pre('save',function(next){
+    if(this.isModified('villageName')){
+        this.villageName = this.villageName.toLowerCase()
+    }
+    next()
 })
 
 module.exports = mongoose.model("events",events)

@@ -12,3 +12,15 @@ exports.createEvents = async (req,res) => {
         res.status(500).json({msg:"Some Error Occured",err, success:false})
     }
 }   
+
+
+exports.getAllEvents = async (req,res) => {
+    try{
+        const {villageName} = req.params
+        if(!villageName) return res.status(400) // send bad req
+        const data = await Event.find({villageName})
+        res.status(200).json({data, success:true})
+    }catch(err){
+        res.status(500).json({msg:"Some Error Occured",err, success:false})
+    }
+}
