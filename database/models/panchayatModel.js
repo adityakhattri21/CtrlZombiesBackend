@@ -14,18 +14,28 @@ const panchayatSchema = mongoose.Schema({
         type:String,
         required:[true,"Office Address Is Required"],
     },
-    Village:{
+    villageName:{
         type:String,
         required:[true,"Village Name is Required"],
     },
-    District:{
+    district:{
         type:String,
         required:[true,"District Name is Required"]
     },
-    State:{
+    state:{
         type:String,
         required:[true,"State Name is Required"]
     }
 });
 
-module.exports = mongoose.Model("Panchayat",panchayatSchema);
+panchayatSchema.pre("save",(next)=>{
+    if(this.isModified('villageName') || this.isModified('district') || this.isModified('state')){
+        this.villageName = this.villageName.toLowerCase();
+        this.district = this.district.toLowerCase();
+        this.state = this.state.toLowerCase();
+    }
+    next();
+})
+
+
+module.exports = mongoose.model("Panchayat",panchayatSchema);

@@ -9,7 +9,7 @@ const memberSchema = mongoose.Schema({
         type:String,
         required:[true,"Designation is Required"]
     },
-    village:{
+    villageName:{
         type:String,
         required:[true,"Village Name is Required"]
     },
@@ -19,4 +19,12 @@ const memberSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.Model("PanchayatMember",memberSchema);
+panchayatSchema.pre("save",(next)=>{
+    if(this.isModified('villageName') || this.isModified('designation')){
+        this.villageName = this.villageName.toLowerCase();
+        this.designation = this.designation.toLowerCase();
+    }
+    next();
+})
+
+module.exports = mongoose.model("PanchayatMember",memberSchema);
