@@ -24,3 +24,19 @@ exports.getAllEvents = async (req,res) => {
         res.status(500).json({msg:"Some Error Occured",err, success:false})
     }
 }
+
+exports.updateVolunteer = async (req,res) => {
+    try{
+        const {userId, eventId} = req.body
+        // if(!id) send error
+        await Event.updateOne({_id:eventId},{
+            $push : {
+                volunteer:userId
+            }
+        })
+        res.status(200).json({msg:"Added volunteer",success:true})
+    }catch(err){
+        res.status(500).json({msg:"Some Error Occured",err, success:false})
+    }
+    
+}
