@@ -17,11 +17,6 @@ const userSchema = mongoose.Schema({
         type:String,
         required:[true,"Email is Required."]
     },
-    password:{
-        type:String,
-        required:[true,"Password is Mandatory"],
-        minLength:[6,"Minimun 6 Characters are required for Password"]
-    },
     villageName:{
         type:String,
         required:[true,"Village Name is Required"],
